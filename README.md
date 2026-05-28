@@ -1,8 +1,3 @@
-#  Autor
- 
-[LinkedIn](https://www.linkedin.com/in/renan-rosa-ferreira-1544701a3/) • 
-
-
 # Pipeline de Sanitização de Dados - Olist
 
 Pipeline de sanitização de dados em formato CSV do banco de dados da Olist. Este repositório é referente ao Mini Projeto Avaliativo 1 do curso profissionalizante em Machine Learning (SCTEC - SENAI/SC).
@@ -78,12 +73,12 @@ pipeline-sanitizacao-olist/
 │   └── olist_orders_products.csv
 
 ```
-
 **3. Execute o script principal:**
 ```bash 
 python main.py
 ```
 **4. Resultado Esperado:**
+
 Após a execução, o script exibirá no terminal um relatório estatístico estruturado da seguinte forma:
 
 ========== RELATÓRIO DE SANITIZAÇÃO ==========
@@ -101,3 +96,10 @@ Hipótese confirmada?
 * **Módulo `csv`:** Leitura e processamento dos arquivos estruturados.
 * **Módulo `re`:** Uso de expressões regulares para a limpeza de strings.
 * **Módulo `datetime`:** Manipulação, validação e formatação de datas.
+
+## Autor
+
+**Renan Rosa Ferreira**
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/renan-rosa-ferreira-1544701a3/)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/renanrosaf)
