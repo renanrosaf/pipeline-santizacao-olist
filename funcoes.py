@@ -1,4 +1,20 @@
 import csv
+import re
+
+#FUNÇÃO REGEXE: Auxilia na padronização e aplica regra REGEX nas strings da categoria
+def limpar_texto(texto):
+    if not texto or texto.strip() == '': #verifica se a string é vazia ou o dado é nulo
+        return "Sem categoria"
+    
+    texto_limpo=texto.lower() #conversão para minusculas
+    texto_limpo=texto_limpo.strip() #remoção dos espaços em branco inicio e fi,
+    texto_limpo=re.sub(r'[^\w\s]',"", texto_limpo) #Expressão Regular:Substitui o que não for letra, numero, espaço ou sublinha por ''
+
+#Proteção:Se após a o REGEX a string ficou vazia
+    if texto_limpo.strip() == '':
+        return "Sem categoria"
+    
+    return texto_limpo
 
 #Função que a realiza a leitura da tabela pedidos:
 def leitura_csv(caminho):
@@ -63,11 +79,10 @@ def tratamento(caminho, caminho_new, med_peso, med_comprimento, med_altura, med_
     
     #Laço que percorre cada e encontra valor nulo/vazio na tabela de produto ou categoria
             for row in reader:
-        # Verifica se o valor é nulo ou vazio
-        #se não tiver nada escrito (vazio) ou estiver nula 
-                if not row['product_category_name'] or row['product_category_name'].strip() == '':
-                    row['product_category_name'] = 'Sem Categoria'
+        
+                row['product_category_name']=limpar_texto(row['product_category_name'])
 
+                #----- TRATAMENTO DE DIMENSÕES-----------
                 if not row['product_weight_g'] or row['product_weight_g'].strip()=='':
                     row['product_weight_g']=med_peso
                 
@@ -81,8 +96,8 @@ def tratamento(caminho, caminho_new, med_peso, med_comprimento, med_altura, med_
                     row['product_width_cm']=med_largura
              
 
-
-                writer.writerow(row) #escreve a linha original/linha substuida pelo sem categori
+                writer.writerow(row) #escreve a linha original/linha substuida pelo sem categoria
+    
     print("Arquivo atualizado com sucesso!")
 
   
