@@ -97,9 +97,51 @@ def tratamento(caminho, caminho_new, med_peso, med_comprimento, med_altura, med_
              
 
                 writer.writerow(row) #escreve a linha original/linha substuida pelo sem categoria
-    
     print("Arquivo atualizado com sucesso!")
 
+
+def validacao_hipotese_pedidos(caminho_pedidos):
+    #contadores
+    total_nulos=0
+    nulos_cancelados=0
+    nulos_outros_status={}
+
+    with open(caminho_pedidos,mode='r',encoding='utf-8') as arquivo:
+        leitor=csv.DictReader(arquivo)
+
+        for linha in leitor:
+            data_entrega=linha['order_delivered_customer_date']
+            status=linha['order_status']
+
+            #Registro não apresenta data de entrega?
+            if not data_entrega or data_entrega.strip()== '':
+                total_nulos +=1
+
+                #2:Validação da hipotese
+                if status == "canceled":
+                    nulos_cancelados +=1
+
+                elif status == "unavailable":
+                    nulos_outros_status["unavailable"]=nulos_outros_status.get('unavailable',0)+1
+
+                else:
+                    nulos_outros_status[status]=nulos_outros_status.get(status,0)+1
+
+    print(f"Total de pedidos SEM data de entrega: {total_nulos}")
+    print(f"Desses, quantos estavam cancelados? {nulos_cancelados}")
+
+    #Validacao Hipóteses de Negócios
+    if nulos_cancelados == total_nulos:
+        print("\nCONCLUSÃO:Hipótese da Olist apresenta fundamentos. Todos os nulos são cancelamentos")
+    else:
+        print("\nCONCLUSÃO: A hipótese da Olist está ERRADA")
+        print(f"Existem {total_nulos - nulos_cancelados} pedidos sem data de entrega que não estão cancelados.")
+        print("Motivos reais encontrados (Status: Quantidade):")
+        for outro_status,quantidade in nulos_outros_status.items():
+            print(f"-> {outro_status}:{quantidade}")
+    print("-"*43)
+
+   
   
 
 

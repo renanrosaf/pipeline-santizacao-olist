@@ -1,4 +1,4 @@
-from funcoes import leitura_csv, tratamento, extrair_valores, calcular_mediana
+from funcoes import leitura_csv, tratamento, extrair_valores, calcular_mediana,validacao_hipotese_pedidos
 import csv
 
 # 1. CAMINHOS DOS ARQUIVOS NA PASTA DATA
@@ -26,6 +26,10 @@ produtos = leitura_csv(caminho_produtos_tratados)
 pedidos = leitura_csv(caminho_pedidos)
 
 print(f"{len(produtos)} produtos e {len(pedidos)} pedidos carregados.")
+
+
+# 4. Validar Hipótese de Pedidos
+validacao_hipotese_pedidos(caminho_pedidos)
 
 # --- TESTE DE LÓGICA DA MEDIANA ---
 print(f"Teste Ímpar (deve ser 20): {calcular_mediana([10, 50, 20])}")
