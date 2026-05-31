@@ -1,4 +1,4 @@
-from funcoes import leitura_csv, tratamento, extrair_valores, calcular_mediana,validacao_hipotese_pedidos,tratamento_pedidos
+from funcoes import leitura_csv, tratamento, extrair_valores, calcular_mediana,validacao_hipotese_pedidos,tratamento_pedidos,gerar_relatorio_final
 
 import csv
 
@@ -29,12 +29,18 @@ pedidos = leitura_csv(caminho_pedidos)
 
 print(f"{len(produtos)} produtos e {len(pedidos)} pedidos carregados.")
 
+total_prod, nulos_prod = tratamento(caminho_produtos, caminho_produtos_tratados, mediana_peso, mediana_altura, mediana_comprimento, mediana_largura)
 
 # 4. Validar Hipótese de Pedidos
 validacao_hipotese_pedidos(caminho_pedidos)
 
+total_ped, cancelados_ped = tratamento_pedidos(caminho_pedidos, caminho_pedidos_tratados)
+
 #5.Limpar e Formata VBase de Pedidos
 tratamento_pedidos(caminho_pedidos,caminho_pedidos_tratados)
+
+linhas_totais = total_prod + total_ped
+gerar_relatorio_final(linhas_totais, nulos_prod, cancelados_ped)
 
 # --- TESTE DE LÓGICA DA MEDIANA ---
 print(f"Teste Ímpar (deve ser 20): {calcular_mediana([10, 50, 20])}")

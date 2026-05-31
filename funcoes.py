@@ -83,7 +83,8 @@ def calcular_mediana(lista_valores):
 
 #função para realizar o tratamento valor nulo,vazio, mediana 
 def tratamento(caminho, caminho_new, med_peso, med_comprimento, med_altura, med_largura):
-    
+    linhas_produtos=0
+    nulos_produtos=0
 #abertura do arquivo original \ e abre um novo arquivo para escrita
     with open(caminho, mode='r', encoding='utf-8') as infile:
      
@@ -97,25 +98,34 @@ def tratamento(caminho, caminho_new, med_peso, med_comprimento, med_altura, med_
     
     #Laço que percorre cada e encontra valor nulo/vazio na tabela de produto ou categoria
             for row in reader:
-        
+                linhas_produtos+=1
+
+                if not row['product_category_name'] or row['product_category_name'].strip() == '':
+                    nulos_produtos+=1
+                
                 row['product_category_name']=limpar_texto(row['product_category_name'])
 
                 #----- TRATAMENTO DE DIMENSÕES-----------
                 if not row['product_weight_g'] or row['product_weight_g'].strip()=='':
                     row['product_weight_g']=med_peso
+                    nulos_produtos+=1
                 
                 if not row['product_length_cm'] or row['product_length_cm'].strip()=='':
                     row['product_length_cm']=med_comprimento
+                    nulos_produtos+=1
 
                 if not row['product_height_cm'] or row['product_height_cm'].strip()=='':
                     row['product_height_cm']=med_altura
+                    nulos_produtos+=1
 
                 if not row['product_width_cm'] or row['product_width_cm'].strip()=='':
                     row['product_width_cm']=med_largura
+                    nulos_produtos+=1
              
 
                 writer.writerow(row) #escreve a linha original/linha substuida pelo sem categoria
     print("Arquivo atualizado com sucesso!")
+    return linhas_produtos,nulos_produtos
 
 
 def validacao_hipotese_pedidos(caminho_pedidos):
@@ -165,6 +175,8 @@ def tratamento_pedidos(caminho_origem, caminho_destino):
     print("\nIniciando a limpeza da base de pedidos...")
     pedidos_salvos=0
     pedidos_descartados=0
+    linhas_pedidos=0
+    cancelados=0
 
     with open(caminho_origem, mode='r', encoding='utf-8') as infile:
         with open(caminho_destino,mode='w',encoding='utf-8', newline='') as outfile:
@@ -173,12 +185,34 @@ def tratamento_pedidos(caminho_origem, caminho_destino):
             escrita.writeheader()
 
             for linha in leitura:
+                linhas_pedidos+=1
                 status=linha['order_status']
+
+                if status == 'canceled':
+                     cancelados+=1
+
                 if status=='canceled' or status =='unavailable':
                     pedidos_descartados+=1
                     continue
+
                 linha['order_approved_at']=formatar_data(linha['order_approved_at'])
 
                 escrita.writerow(linha)
                 pedidos_salvos+=1
     print(f"Limpeza concluída!Pedidos válidos slavos: {pedidos_salvos}.Descartados:{pedidos_descartados}.")
+    return linhas_pedidos,cancelados
+
+def gerar_relatorio_final(total_linhas,nulos_corrigidos,cancelados_identificados):
+    print("\n" + "="*55)
+    print(" RELATÓRIO FINAL DE SANITIZAÇÃO DA OLIST ".center(55,"="))
+    print("="*55)
+    print(f"Linhas Totais Processadas: {total_linhas}")
+    print(f" Nulos Identificados/Salvos: {nulos_corrigidos}")
+    print(f"Pedidos Cancelados: {cancelados_identificados}")
+    print("_"*55)
+
+    if total_linhas>0:
+        print("STATUS DA BASE: 100% SANITIZADA")
+    else:
+        print("Nenhuma linha foi porecossada")
+    print("="*55 +"\n")
