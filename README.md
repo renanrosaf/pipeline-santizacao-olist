@@ -81,14 +81,32 @@ python main.py
 
 Após a execução, o script exibirá no terminal um relatório estatístico estruturado da seguinte forma:
 
-========== RELATÓRIO DE SANITIZAÇÃO ==========
-Total de produtos processados: 
-Categorias nulas corrigidas:   
-Registros físicos descartados: 
-Total de pedidos processados:  
-Pedidos sem data de entrega:   
-Pedidos cancelados (sem data): 
-Hipótese confirmada?
+Extraindo e calculando a mediana ....
+Realizando o tratamento de dados nulos e vazios...
+Arquivo atualizado com sucesso!
+Carregando os dados na memória...
+32951 produtos e 99441 pedidos carregados
+Total de pedidos SEM data de entrega: 2965
+Desses, quantos estavam cancelados? 619
+CONCLUSÃO: A hipótese da Olist está ERRADA
+Existem 2346 pedidos sem data de entrega que não estão cancelados.
+Motivos reais encontrados (Status: Quantidade):
+-> invoiced:314
+-> shipped:1107
+-> processing:301
+-> unavailable:609
+-> delivered:8
+-> created:5
+-> approved:2
+Iniciando a limpeza da base de pedidos...
+Limpeza concluída! Pedidos válidos salvos: 98207. Descartados: 1234.
+=======================================================
+======= RELATÓRIO FINAL DE SANITIZAÇÃO DA OLIST =======
+Linhas Totais Processadas:        132392
+Nulos Identificados/Corrigidos:   618
+Pedidos Cancelados Identificados: 625
+STATUS DA BASE: 100% SANITIZADA ✓
+=======================================================
 
 ##  Tecnologias utilizadas
 

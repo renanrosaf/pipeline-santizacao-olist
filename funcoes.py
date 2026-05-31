@@ -208,10 +208,10 @@ def gerar_relatorio_final(total_linhas,nulos_corrigidos,cancelados_identificados
     print("="*55)
     print(f"Linhas Totais Processadas: {total_linhas}")
     print(f" Nulos Identificados/Salvos: {nulos_corrigidos}")
-    print(f"Pedidos Cancelados: {cancelados_identificados}")
+    print(f"Pedidos Cancelados Identificados: {cancelados_identificados}")
     print("_"*55)
 
-    if total_linhas>0:
+    if nulos_corrigidos>=0 and total_linhas>0:
         print("STATUS DA BASE: 100% SANITIZADA")
     else:
         print("Nenhuma linha foi porecossada")
