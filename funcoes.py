@@ -1,5 +1,6 @@
 import csv
 import re
+from datetime import datetime
 
 #FUNÇÃO REGEXE: Auxilia na padronização e aplica regra REGEX nas strings da categoria
 def limpar_texto(texto):
@@ -15,6 +16,23 @@ def limpar_texto(texto):
         return "Sem categoria"
     
     return texto_limpo
+
+#Função Formatar DATA:
+# Função Formatar DATA
+def formatar_data(data_string):
+    # Verifica se a data está vazia ou nula antes de converter
+    if not data_string or data_string.strip() == '':
+        return ''
+    try:
+        # Converte string → objeto datetime
+        data_obj = datetime.strptime(data_string, '%Y-%m-%d %H:%M:%S')
+        # Converte objeto datetime → formato brasileiro
+        data_formatada = data_obj.strftime('%d/%m/%Y')
+        return data_formatada
+    except ValueError:
+        # Se o formato for inesperado, mantém o valor original
+        return data_string
+
 
 #Função que a realiza a leitura da tabela pedidos:
 def leitura_csv(caminho):
@@ -143,5 +161,24 @@ def validacao_hipotese_pedidos(caminho_pedidos):
 
    
   
+def tratamento_pedidos(caminho_origem, caminho_destino):
+    print("\nIniciando a limpeza da base de pedidos...")
+    pedidos_salvos=0
+    pedidos_descartados=0
 
+    with open(caminho_origem, mode='r', encoding='utf-8') as infile:
+        with open(caminho_destino,mode='w',encoding='utf-8', newline='') as outfile:
+            leitura=csv.DictReader(infile)
+            escrita=csv.DictWriter(outfile, fieldnames=leitura.fieldnames)
+            escrita.writeheader()
 
+            for linha in leitura:
+                status=linha['order_status']
+                if status=='canceled' or status =='unavailable':
+                    pedidos_descartados+=1
+                    continue
+                linha['order_approved_at']=formatar_data(linha['order_approved_at'])
+
+                escrita.writerow(linha)
+                pedidos_salvos+=1
+    print(f"Limpeza concluída!Pedidos válidos slavos: {pedidos_salvos}.Descartados:{pedidos_descartados}.")

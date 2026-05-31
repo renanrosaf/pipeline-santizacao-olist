@@ -1,10 +1,12 @@
-from funcoes import leitura_csv, tratamento, extrair_valores, calcular_mediana,validacao_hipotese_pedidos
+from funcoes import leitura_csv, tratamento, extrair_valores, calcular_mediana,validacao_hipotese_pedidos,tratamento_pedidos
+
 import csv
 
 # 1. CAMINHOS DOS ARQUIVOS NA PASTA DATA
 caminho_produtos = 'data/olist_products_dataset.csv'
 caminho_produtos_tratados = 'data/olist_orders_products_limpo.csv'
 caminho_pedidos = 'data/olist_orders_dataset.csv'
+caminho_pedidos_tratados='data/olist_orders_dataset_limpo.csv'
 
 print("Extraindo e calculando a mediana ....")
 lista_pesos = extrair_valores(caminho_produtos, 'product_weight_g')
@@ -30,6 +32,9 @@ print(f"{len(produtos)} produtos e {len(pedidos)} pedidos carregados.")
 
 # 4. Validar Hipótese de Pedidos
 validacao_hipotese_pedidos(caminho_pedidos)
+
+#5.Limpar e Formata VBase de Pedidos
+tratamento_pedidos(caminho_pedidos,caminho_pedidos_tratados)
 
 # --- TESTE DE LÓGICA DA MEDIANA ---
 print(f"Teste Ímpar (deve ser 20): {calcular_mediana([10, 50, 20])}")
