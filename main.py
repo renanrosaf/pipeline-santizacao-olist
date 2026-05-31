@@ -1,3 +1,10 @@
+"""Pipeline de Sanitização de Dados - Olist
+Arquivo principal (main) responsável por orquestrar a limpeza 
+e validação das bases de dados de produtos e pedidos. Ele extrai medianas para 
+tratamento de valores nulos, padroniza textos e datas, e gera um relatório final.
+"""
+
+#IMPORTACAO DAS FUNÇÕES E BIBLIOTECA NATIVA
 from funcoes import leitura_csv, tratamento, extrair_valores, calcular_mediana,validacao_hipotese_pedidos,tratamento_pedidos,gerar_relatorio_final
 import csv
 
@@ -7,6 +14,7 @@ caminho_produtos_tratados = 'data/olist_orders_products_limpo.csv'
 caminho_pedidos = 'data/olist_orders_dataset.csv'
 caminho_pedidos_tratados='data/olist_orders_dataset_limpo.csv'
 
+#2. REALIZAÇÃO DA REGRA DE CORTE (MEDIANA) E TRATAMENTOD A BASE DE PRODUTOS
 print("Extraindo e calculando a mediana ....")
 lista_pesos = extrair_valores(caminho_produtos, 'product_weight_g')
 mediana_peso = calcular_mediana(lista_pesos)
@@ -17,7 +25,6 @@ mediana_altura = calcular_mediana(lista_altura)
 lista_largura = extrair_valores(caminho_produtos, 'product_width_cm')
 mediana_largura = calcular_mediana(lista_largura)
 
-# 2. REALIZAÇÃO DO TRATAMENTO
 print("Realizando o tratamento de dados nulos e vazios...")
 
 total_prod,nulos_prod=tratamento(
@@ -31,32 +38,15 @@ produtos=leitura_csv(caminho_produtos_tratados)
 pedidos=leitura_csv(caminho_pedidos)
 print(f"{len(produtos)} e {len(pedidos)} pedidos carregados")
 
-# 4. Validar Hipótese de Pedidos
+# 4. REGRA DE NEGÓCIO E TRATAMENTO DA BASE DE PRODUTOS (VALIDAÇÃO E FORMATAÇÃO)
+# Validação da hipótese de negócios sobre os pedidos cancelados
 validacao_hipotese_pedidos(caminho_pedidos)
 
-
-#5.Limpar e Formata VBase de Pedidos
+# Limpeza, descarte de nulos e conversão de datas para o padrão brasileiro
+print("Conversão da data para o formato brasileiro...")
 total_ped, cancelados_ped = tratamento_pedidos(caminho_pedidos, caminho_pedidos_tratados)
+
+#6:RELATÓRIO DE STATUS:
 linhas_totais = total_prod + total_ped
 gerar_relatorio_final(linhas_totais, nulos_prod, cancelados_ped)
 
-# # --- TESTE DE LÓGICA DA MEDIANA ---
-# print(f"Teste Ímpar (deve ser 20): {calcular_mediana([10, 50, 20])}")
-# print(f"Teste Par (deve ser 25.0): {calcular_mediana([10, 20, 30, 40])}")
-# print("-" * 30)
-
-# # --- BLOCO DE AUDITORIA ---
-# print("\nAuditando o arquivo limpo...")
-# nulos_categoria = 0
-# nulos_peso = 0
-
-# with open(caminho_produtos_tratados, mode='r', encoding='utf-8') as arquivo_validacao:
-#     leitor_validacao = csv.DictReader(arquivo_validacao)
-#     for linha in leitor_validacao:
-#         if not linha['product_category_name'] or linha['product_category_name'].strip() == '':
-#             nulos_categoria += 1
-#         if not linha['product_weight_g'] or linha['product_weight_g'].strip() == '':
-#             nulos_peso += 1
-
-# print(f"-> Valores nulos restantes em 'product_category_name': {nulos_categoria}")
-# print(f"-> Valores nulos restantes em 'product_weight_g': {nulos_peso}")
