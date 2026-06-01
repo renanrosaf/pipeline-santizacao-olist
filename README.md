@@ -78,7 +78,7 @@ pipeline-sanitizacao-olist/
 python main.py
 ```
 **4. Resultado Esperado:**
-
+```text
 Após a execução, o script exibirá no terminal um relatório estatístico estruturado da seguinte forma:
 
 Extraindo e calculando a mediana ....
@@ -86,8 +86,10 @@ Realizando o tratamento de dados nulos e vazios...
 Arquivo atualizado com sucesso!
 Carregando os dados na memória...
 32951 produtos e 99441 pedidos carregados
+
 Total de pedidos SEM data de entrega: 2965
 Desses, quantos estavam cancelados? 619
+
 CONCLUSÃO: A hipótese da Olist está ERRADA
 Existem 2346 pedidos sem data de entrega que não estão cancelados.
 Motivos reais encontrados (Status: Quantidade):
@@ -98,15 +100,20 @@ Motivos reais encontrados (Status: Quantidade):
 -> delivered:8
 -> created:5
 -> approved:2
+
 Iniciando a limpeza da base de pedidos...
 Limpeza concluída! Pedidos válidos salvos: 98207. Descartados: 1234.
+
 =======================================================
 ======= RELATÓRIO FINAL DE SANITIZAÇÃO DA OLIST =======
+=======================================================
 Linhas Totais Processadas:        132392
 Nulos Identificados/Corrigidos:   618
 Pedidos Cancelados Identificados: 625
+=======================================================
 STATUS DA BASE: 100% SANITIZADA ✓
 =======================================================
+```
 
 ##  Tecnologias utilizadas
 
@@ -117,8 +124,10 @@ STATUS DA BASE: 100% SANITIZADA ✓
 
 ## Reflexão Teórica sobre Machine Learning: Como uma lógica de programação aplicada à limpeza correta dos dados ajuda a evitar o Overfitting ou viés em futuros modelos de Inteligência Artificial.
 
+```text
 A qualidade dos dados é o pilar fundamental no treinamento de qualquer modelo de Inteligência Artificial. Se os dados não forem devidamente sanitizados, o algoritmo pode aprender padrões incorretos e amplificar vieses, resultando em previsões que não condizem com a realidade. Em contrapartida, uma limpeza bem executada é o que garante a estabilidade e a precisão das futuras análises. Quando negligenciamos essa etapa, deixamos o projeto exposto a dois riscos severos: o Viés (Bias), que ensina uma visão distorcida à máquina, e o Overfitting (Sobreajuste), onde o modelo decora ruídos e falhas em vez de generalizar os padrões reais do negócio.
 É exatamente aí que entra o diferencial de aplicar a lógica de programação. Ao estruturar a limpeza de dados através de códigos e funções modulares, nós garantimos a reprodutibilidade e a escalabilidade do processo. Isso assegura que qualquer novo lote de informações passará pelo mesmo rigor estatístico, blindando o modelo e garantindo que ele evolua sobre uma base técnica sólida.
+```
 
 ## Autor
 
