@@ -52,18 +52,21 @@ pipeline-sanitizacao-olist/
 
 ### Pré Requisitos:
 
--Python 3.8+ instalado em sua máquina.
+* Python 3.8+ instalado em sua máquina.
 
--Não é necessária a instalação de bibliotecas externas. O projeto utiliza apenas módulos nativos da linguagem (csv, re, datetime).
+* Não é necessária a instalação de bibliotecas externas. O projeto utiliza apenas módulos nativos da linguagem (csv, re, datetime).
 
 ### Passo a Passo:
 
-**1. Clone o repositório: ** 
+**1. Clone o repositório:**
+
 ``` bash 
 git clone https://github.com/renanrosaf/pipeline-santizacao-olist.git
 cd pipeline-sanitizacao-olist
 ```
+
 **2. Adicione os arquivos de dados:**
+
 Certifique-se de ter feito o download dos arquivos no Kaggle (como explicado na seção *Dados Utilizados*) e mova-os para dentro da pasta `data/` na raiz do projeto:
 
 ```text
@@ -78,9 +81,10 @@ pipeline-sanitizacao-olist/
 python main.py
 ```
 **4. Resultado Esperado:**
-```text
+
 Após a execução, o script exibirá no terminal um relatório estatístico estruturado da seguinte forma:
 
+```text
 Extraindo e calculando a mediana ....
 Realizando o tratamento de dados nulos e vazios...
 Arquivo atualizado com sucesso!
@@ -124,10 +128,10 @@ STATUS DA BASE: 100% SANITIZADA ✓
 
 ## Reflexão Teórica sobre Machine Learning: Como uma lógica de programação aplicada à limpeza correta dos dados ajuda a evitar o Overfitting ou viés em futuros modelos de Inteligência Artificial.
 
-```text
+
 A qualidade dos dados é o pilar fundamental no treinamento de qualquer modelo de Inteligência Artificial. Se os dados não forem devidamente sanitizados, o algoritmo pode aprender padrões incorretos e amplificar vieses, resultando em previsões que não condizem com a realidade. Em contrapartida, uma limpeza bem executada é o que garante a estabilidade e a precisão das futuras análises. Quando negligenciamos essa etapa, deixamos o projeto exposto a dois riscos severos: o Viés (Bias), que ensina uma visão distorcida à máquina, e o Overfitting (Sobreajuste), onde o modelo decora ruídos e falhas em vez de generalizar os padrões reais do negócio.
 É exatamente aí que entra o diferencial de aplicar a lógica de programação. Ao estruturar a limpeza de dados através de códigos e funções modulares, nós garantimos a reprodutibilidade e a escalabilidade do processo. Isso assegura que qualquer novo lote de informações passará pelo mesmo rigor estatístico, blindando o modelo e garantindo que ele evolua sobre uma base técnica sólida.
-```
+
 
 ## Autor
 
