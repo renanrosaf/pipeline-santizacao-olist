@@ -115,6 +115,11 @@ STATUS DA BASE: 100% SANITIZADA ✓
 * **Módulo `re`:** Uso de expressões regulares para a limpeza de strings.
 * **Módulo `datetime`:** Manipulação, validação e formatação de datas.
 
+## Reflexão Teórica sobre Machine Learning: Como uma lógica de programação aplicada à limpeza correta dos dados ajuda a evitar o Overfitting ou viés em futuros modelos de Inteligência Artificial.
+
+A qualidade dos dados é o pilar fundamental no treinamento de qualquer modelo de Inteligência Artificial. Se os dados não forem devidamente sanitizados, o algoritmo pode aprender padrões incorretos e amplificar vieses, resultando em previsões que não condizem com a realidade. Em contrapartida, uma limpeza bem executada é o que garante a estabilidade e a precisão das futuras análises. Quando negligenciamos essa etapa, deixamos o projeto exposto a dois riscos severos: o Viés (Bias), que ensina uma visão distorcida à máquina, e o Overfitting (Sobreajuste), onde o modelo decora ruídos e falhas em vez de generalizar os padrões reais do negócio.
+É exatamente aí que entra o diferencial de aplicar a lógica de programação. Ao estruturar a limpeza de dados através de códigos e funções modulares, nós garantimos a reprodutibilidade e a escalabilidade do processo. Isso assegura que qualquer novo lote de informações passará pelo mesmo rigor estatístico, blindando o modelo e garantindo que ele evolua sobre uma base técnica sólida.
+
 ## Autor
 
 **Renan Rosa Ferreira**
